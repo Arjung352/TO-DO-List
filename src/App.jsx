@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Show from "./Show";
 
 const App = () => {
   const [list, setList] = useState("");
   const [items, setItems] = useState([]);
-
   const change = (event) => {
     const value = event.target.value;
-    setList(value); //here we are storing only the current value
+    setList(value);
   };
 
   const add = () => {
@@ -14,11 +15,6 @@ const App = () => {
       setItems((prevItems) => [...prevItems, list]);
       setList("");
     }
-  };
-
-  const deleteItem = (index) => {
-    const updatedItems = items.filter((item, i) => i !== index);
-    setItems(updatedItems);
   };
 
   return (
@@ -35,17 +31,12 @@ const App = () => {
             onChange={change}
           />
           <button onClick={add} className="Add">
-            +
+            <AddCircleIcon fontSize="large" />
           </button>
           <div className="lists">
             <ol>
               {items.map((val, index) => (
-                <li key={index}>
-                  <button className="Delete" onClick={() => deleteItem(index)}>
-                    x
-                  </button>
-                  {val}
-                </li>
+                <Show index={index} value={val} />
               ))}
             </ol>
           </div>
